@@ -78,8 +78,8 @@ class Unit : public Object {
                       float damage_scale = 1.0f,
                       Args... args);
 
-  [[nodiscard]] virtual const char *UnitName() const;
-  [[nodiscard]] virtual const char *Author() const;
+  [[nodiscard]] virtual std::string UnitName() const;
+  [[nodiscard]] virtual std::string Author() const;
 
  protected:
   uint32_t player_id_{};

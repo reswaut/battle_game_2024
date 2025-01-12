@@ -1,6 +1,7 @@
 #include "battle_game/core/unit.h"
 
 #include "battle_game/core/game_core.h"
+#include "battle_game/localization/localization_manager.h"
 
 namespace battle_game {
 
@@ -118,10 +119,10 @@ void Unit::RenderLifeBar() {
 void Unit::RenderHelper() {
 }
 
-const char *Unit::UnitName() const {
-  return "Unknown Unit";
+std::string Unit::UnitName() const {
+  return LocalizationManager::GetInstance()->GetLocalizationString({"core", "units", "default", "name"});
 }
-const char *Unit::Author() const {
-  return "Unknown Author";
+std::string Unit::Author() const {
+  return LocalizationManager::GetInstance()->GetLocalizationString({"core", "units", "default", "author"});
 }
 }  // namespace battle_game

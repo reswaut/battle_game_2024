@@ -1,4 +1,5 @@
 #include "battle_game/core/game_core.h"
+#include "battle_game/localization/localization_manager.h"
 
 namespace battle_game {
 
@@ -11,12 +12,15 @@ void GameCore::AddPrimaryUnitAllocationFunction(Args... args) {
 
 void GameCore::GeneratePrimaryUnitList() {
   std::unique_ptr<Unit> unit;
+  auto mgr = LocalizationManager::GetInstance();
+  auto pre_author = mgr->GetLocalizationString({"core", "select_unit_list_item", "pre_author"});
+  auto post_author = mgr->GetLocalizationString({"core", "select_unit_list_item", "post_author"});
 
 #define ADD_SELECTABLE_UNIT(UnitType)                                        \
   unit = std::make_unique<UnitType>(nullptr, 0, 0);                          \
   AddPrimaryUnitAllocationFunction<UnitType>();                              \
-  selectable_unit_list_.push_back(unit->UnitName() + std::string(" - By ") + \
-                                  unit->Author());
+  selectable_unit_list_.push_back(unit->UnitName() + pre_author +            \
+                                  unit->Author() + post_author);
 
   /*
    * TODO: Add Your Unit Here!

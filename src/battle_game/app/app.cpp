@@ -4,6 +4,7 @@
 
 #include "battle_game/core/object.h"
 #include "battle_game/graphics/util.h"
+#include "battle_game/localization/localization_manager.h"
 
 namespace {
 #include "built_in_shaders.inl"
@@ -24,7 +25,9 @@ static void HelpMarker(const char *desc) {
 App::App(const AppSettings &app_settings, GameCore *game_core) {
   game_core_ = game_core;
   vulkan_legacy::framework::CoreSettings core_settings;
-  core_settings.window_title = "Battle Game";
+  static std::string title;
+  title = LocalizationManager::GetInstance()->GetLocalizationString({"app", "window_title"});
+  core_settings.window_title = title.c_str();
   core_settings.window_width = app_settings.width;
   core_settings.window_height = app_settings.height;
   core_ = std::make_unique<vulkan_legacy::framework::Core>(core_settings);
@@ -295,15 +298,16 @@ void App::UpdateImGui() {
   ImGui::NewFrame();
   ImGui::SetNextWindowPos(ImVec2{0.0f, 0.0f}, ImGuiCond_Once);
   ImGui::SetNextWindowBgAlpha(0.3f);
-  if (ImGui::Begin(u8"调试窗口", nullptr,
+  auto mgr = LocalizationManager::GetInstance();
+  if (ImGui::Begin(mgr->GetLocalizationString({"app", "debug_window_title"}).c_str(), nullptr,
                    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoTitleBar |
                        ImGuiWindowFlags_AlwaysAutoResize)) {
     auto player = game_core_->GetPlayer(my_player_id_);
     if (player) {
       auto selectable_list = game_core_->GetSelectableUnitList();
-      ImGui::Combo(u8"选择你的单位（重生后生效）", &player->SelectedUnit(),
+      ImGui::Combo(mgr->GetLocalizationString({"app", "select_unit_description"}).c_str(), &player->SelectedUnit(),
                    selectable_list.data(), selectable_list.size());
-      if (ImGui::Button(u8"自毁")) {
+      if (ImGui::Button(mgr->GetLocalizationString({"app", "self_destruct_button"}).c_str())) {
         auto unit = game_core_->GetUnit(player->GetPrimaryUnitId());
         if (unit) {
           game_core_->PushEventRemoveUnit(unit->GetId());
@@ -311,12 +315,12 @@ void App::UpdateImGui() {
       }
       auto unit = game_core_->GetUnit(player->GetPrimaryUnitId());
       if (unit) {
-        ImGui::Text(u8"生命值: %.1f / %.1f",
+        ImGui::Text(mgr->GetLocalizationString({"app", "life_total"}).c_str(),
                     unit->GetHealth() * unit->GetMaxHealth(),
                     unit->GetMaxHealth());
         ImGui::ProgressBar(unit->GetHealth());
       } else {
-        ImGui::Text(u8"已死亡,等待%d秒后复活。",
+        ImGui::Text(mgr->GetLocalizationString({"app", "wait_for_revival"}).c_str(),
                     player->GetResurrectionCountDown() / kTickPerSecond);
       }
     }

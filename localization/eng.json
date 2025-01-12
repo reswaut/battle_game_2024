@@ -1,0 +1,26 @@
+{
+    "app": {
+        "window_title": "Battle Game",
+        "debug_window_title": "Debug Window",
+        "select_unit_description": "Choose your unit (Works after revival)",
+        "self_destruct_button": "Self Destruct",
+        "life_total": "Health: %.1f / %.1f",
+        "wait_for_revival": "Wait %d seconds to revive."
+    },
+    "core": {
+        "select_unit_list_item": {
+            "pre_author": " - By ",
+            "post_author": ""
+        },
+        "units": {
+            "default": {
+                "name": "Unknown Unit",
+                "author": "Unknown Author"
+            },
+            "tiny_tank": {
+                "name": "Tiny Tank",
+                "author": "LazyJazz"
+            }
+        }
+    }
+}

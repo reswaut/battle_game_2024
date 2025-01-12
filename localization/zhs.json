@@ -1,0 +1,22 @@
+{
+    "app": {
+        "window_title": "Battle Game",
+        "debug_window_title": "调试窗口",
+        "select_unit_description": "选择你的单位（重生后生效）",
+        "self_destruct_button": "自毁",
+        "life_total": "生命值: %.1f / %.1f",
+        "wait_for_revival": "已死亡,等待%d秒后复活。"
+    },
+    "core": {
+        "select_unit_list_item": {
+            "pre_author": "（由",
+            "post_author": "创建）"
+        },
+        "units": {
+            "tiny_tank": {
+                "name": "小型坦克",
+                "author": "LazyJazz"
+            }
+        }
+    }
+}

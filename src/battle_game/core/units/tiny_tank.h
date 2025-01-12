@@ -13,8 +13,8 @@ class Tank : public Unit {
   void TankMove(float move_speed, float rotate_angular_speed);
   void TurretRotate();
   void Fire();
-  [[nodiscard]] const char *UnitName() const override;
-  [[nodiscard]] const char *Author() const override;
+  [[nodiscard]] std::string UnitName() const override;
+  [[nodiscard]] std::string Author() const override;
 
   float turret_rotation_{0.0f};
   uint32_t fire_count_down_{0};

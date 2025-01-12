@@ -3,6 +3,7 @@
 #include "battle_game/core/bullets/bullets.h"
 #include "battle_game/core/game_core.h"
 #include "battle_game/graphics/graphics.h"
+#include "battle_game/localization/localization_manager.h"
 
 namespace battle_game::unit {
 
@@ -156,11 +157,11 @@ bool Tank::IsHit(glm::vec2 position) const {
          position.y - position.x < 1.6f;
 }
 
-const char *Tank::UnitName() const {
-  return "Tiny Tank";
+std::string Tank::UnitName() const {
+  return LocalizationManager::GetInstance()->GetLocalizationString({"core", "units", "tiny_tank", "name"});
 }
 
-const char *Tank::Author() const {
-  return "LazyJazz";
+std::string Tank::Author() const {
+  return LocalizationManager::GetInstance()->GetLocalizationString({"core", "units", "tiny_tank", "author"});
 }
 }  // namespace battle_game::unit
